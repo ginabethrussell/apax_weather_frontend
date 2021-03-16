@@ -2,10 +2,21 @@ import React, { useState } from "react";
 import { useHistory } from 'react-router-dom';
 
 import axios from "axios";
+import {Grid, Paper, Avatar, TextField, FormControlLabel, Checkbox, Button, Typography, Link} from '@material-ui/core';
+import LockIcon from "@material-ui/icons/Lock";
+
 
 function Login() {
 	const [credentials, setCredentials] = useState({ username: "", password: "" });
-    const history = useHistory();
+  const history = useHistory();
+
+  // Material UI styles
+  const paperStyle={ padding: 20, height: '70vh', width: 280, margin: "100px auto" };
+  const avatarStyle={ backgroundColor:'#44ccee' }
+  const buttonStyle={ margin: '20px 0'}
+  const titleStyle={ fontFamily: 'Open sans',color: '#2e3451', marginBottom: '10px'}
+  const headingStyle={ fontFamily: 'Open sans', color: '#2e3451', marginTop: '10px'}
+  const fieldStyle={marginBottom: '15px'}
 	const login = (e) => {
 		e.preventDefault();
 		axios
@@ -33,31 +44,39 @@ function Login() {
 		});
 
 	return (
-		<>
-		<h2> Login to Your Account</h2>
-		<form onSubmit={login}>
-			<label>
-				Username:
-				<input
-					type="text"
-					name="username"
-					value={credentials.username}
-					onChange={handleChange}
-				/>
-			</label>
-			<label>
-				password:
-				<input
-					type="password"
-					name="password"
-					value={credentials.password}
-					onChange={handleChange}
-				/>
-			</label>
-			<br/>
-			<button>Log in</button>
-		</form>
-		</>
+		<Grid>
+      <Paper elevation={20} style={paperStyle}>
+        <Grid align='center'>
+          <h1 style={titleStyle}>My Weather App</h1>
+          <Avatar style={avatarStyle}><LockIcon/></Avatar>
+          <h2 style={headingStyle}>Sign In</h2>
+        </Grid>
+        <TextField 
+          style={fieldStyle}
+          label="Username"
+          name='username'
+          placeholder="Enter username"
+          value={credentials.username}
+          fullWidth
+          required 
+          onChange={handleChange}/>
+        <TextField 
+          label="Password"
+          name='password'
+          placeholder="Enter password"
+          type='password'
+          value={credentials.password}
+          fullWidth
+          required 
+          onChange={handleChange}/>
+        
+        <Button type='submit' color='primary' variant='contained' fullWidth style={buttonStyle} >Sign In</Button>
+        
+        <Typography> Need an account?
+          <Link href="#" > Sign Up</Link>
+        </Typography>
+        </Paper>
+      </Grid>
 	);
 };
 
