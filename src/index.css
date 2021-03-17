@@ -1,6 +1,8 @@
 body {
   margin: 0;
   background-image: url("AboveClouds.png");
+  background-repeat: no-repeat;
   background-position:  center;
   height: 100vh;
 }
+

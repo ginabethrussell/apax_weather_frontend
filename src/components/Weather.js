@@ -19,7 +19,10 @@ function Weather() {
 
     useEffect(() => {
         axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=${"40515"}&units=imperial&appid=11d7ddf7e962666cde4937e2b28eca42`)
-        .then(res => console.log(res.data))
+        .then(res => {
+            console.log(res.data);
+            setWeatherData(res.data);
+        })
         .catch(err => console.log(err));
         
 
@@ -28,6 +31,8 @@ function Weather() {
     return (
         <div>
             Weather Dashboard
+            {console.log(locations)}
+            {console.log(weatherData)}
         </div>
     )
 }
