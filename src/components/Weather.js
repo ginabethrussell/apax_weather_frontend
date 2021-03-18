@@ -80,7 +80,7 @@ function Weather() {
     useEffect(() => {
         if (zipcodes.length > 0){
             zipcodes.forEach(zip => {
-                axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=${zip.zipcode}&units=imperial&appid=11d7ddf7e962666cde4937e2b28eca42`)
+                axios.get(`https://api.openweathermap.org/data/2.5/weather?zip=${zip.zipcode}&units=imperial&appid=11d7ddf7e962666cde4937e2b28eca42`)
                 .then(res => {
                     cleanAndAddData(res.data, zip);
                 })
