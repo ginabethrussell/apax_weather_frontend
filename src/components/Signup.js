@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-
+import { UserContext } from "../contexts/UserContext";
 import axios from "axios";
 import {
   Grid,
@@ -10,35 +10,50 @@ import {
   Button,
   Typography,
   Link,
+  LinearProgress,
 } from "@material-ui/core";
 import LockIcon from "@material-ui/icons/Lock";
 
 const initialUserCredentials = {
-    username: "",
-    password: "",
-    primaryemail: ""
-  }
+  username: "",
+  password: "",
+  primaryemail: "",
+};
 
 function Signup() {
   const [credentials, setCredentials] = useState(initialUserCredentials);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const { setUsername } = useContext(UserContext);
   const history = useHistory();
 
   // Material UI styles
   const paperStyle = {
     padding: 20,
     height: "80vh",
-    maxHeight: "700px",
-    width: 280,
+    maxHeight: "600px",
+    width: "70%",
+    minWidth: 280,
+    maxWidth: 350,
     margin: "100px auto",
   };
   const avatarStyle = { backgroundColor: "#44ccee" };
   const buttonStyle = { margin: "20px 0" };
-  const titleStyle = { color: "#2e3451", marginBottom: "10px" };
-  const headingStyle = { color: "#2e3451", marginTop: "10px" };
+  const titleStyle = {
+    fontWeight: "600",
+    color: "#2e3451",
+    marginBottom: "10px",
+  };
+  const headingStyle = {
+    fontWeight: "400",
+    color: "#2e3451",
+    marginTop: "10px",
+  };
   const fieldStyle = { marginBottom: "15px" };
   const textStyle = { color: "#2e3451" };
   const errorStyle = { color: "crimson" };
+  const loadingStyle = { margin: "25px" };
+  const loadingTextStyle = { marginBottom: "10px", color: "#2e3451" };
 
   const signup = (e) => {
     e.preventDefault();
@@ -47,17 +62,21 @@ function Signup() {
       password: credentials.password,
       primaryemail: credentials.primaryemail,
     };
+    setIsLoading(true);
     axios
       .post("https://gbr4477-apax-weather.herokuapp.com/createnewuser", newuser)
       .then((res) => {
         console.log(res.data);
         setError("");
+        setUsername(credentials.username);
+        setIsLoading(false);
         setCredentials(initialUserCredentials);
         localStorage.setItem("token", res.data.access_token);
         history.push("/weather");
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
         setError("An error has occcurred. Please try again.");
       });
   };
@@ -128,6 +147,15 @@ function Signup() {
 
         {error.length > 0 && (
           <Typography style={errorStyle}>{error}</Typography>
+        )}
+
+        {isLoading && (
+          <div style={loadingStyle}>
+            <Typography style={loadingTextStyle}>
+              Signing in user ...
+            </Typography>
+            <LinearProgress />
+          </div>
         )}
       </Paper>
     </Grid>

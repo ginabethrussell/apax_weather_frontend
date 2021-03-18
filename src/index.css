@@ -1,8 +1,14 @@
 body {
   margin: 0;
+  background-color: #e8fbff;
   background-image: url("AboveClouds.png");
+  background-size: cover;
   background-repeat: no-repeat;
   background-position:  center;
   height: 100vh;
+}
+
+html {
+  box-sizing: border-box;
 }
 
