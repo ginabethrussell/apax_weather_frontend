@@ -62,7 +62,7 @@ function Welcome() {
             <Paper className={classes.welcome} elevation={10}>
                 <Typography className={classes.textStyle} variant="h3">My Weather App</Typography>
                 <Typography className={classes.textStyle} variant="h4">Welcome, {username}</Typography>
-                <img width="40%" src={animation} alt="weather icon image"/>
+                <img width="40%" src={animation} alt="weather icon animation"/>
                 <Typography className={classes.textStyle} variant="h6">Access current weather anywhere in the USA</Typography>
                 <Typography className={classes.textStyle} variant="h6">Enter a 5-digit Zipcode on your Weather Dashboard</Typography>
                 <Typography className={classes.textStyle} variant="h6">Add and Delete locations to meet your weather needs</Typography> 

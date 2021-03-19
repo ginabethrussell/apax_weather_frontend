@@ -11,7 +11,7 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 const useStyles = makeStyles(() => ({
     avatar: {
-      backgroundColor: "#ffffff",
+      backgroundColor: "#48d0f2",
       height: 75,
       width: 75,
       border: "1px solid #2e3451"

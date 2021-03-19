@@ -5,7 +5,7 @@ import Header from "./Header";
 import WeatherCard from "./WeatherCard";
 import { UserContext } from "../contexts/UserContext";
 import {Grid, Paper, Typography } from "@material-ui/core";
-import animation from "../rainy-4.svg"
+import animation from "../rainy-6.svg"
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
@@ -31,7 +31,6 @@ function Weather() {
     const { zipcodes, setZipcodes, weatherData, setWeatherData} = useContext(UserContext);
     const [userid, setUserid] = useState("");
     const [zipApiErr, setZipApiErr] = useState("");
-    const [isInitialStateSet, setIsInitialState] = useState(false);
 
     const classes = useStyles();
 
@@ -118,7 +117,6 @@ function Weather() {
                 })
                 .then(() =>{
                     setWeatherData([...weatherData, ...locations]);
-                    setIsInitialState(true);
                 })
                 .catch(err => {
                     console.log(err);
@@ -139,12 +137,11 @@ function Weather() {
             <Grid item container>
                 <Grid item xs={2} sm={2}/> 
                 <Grid item xs={8} sm={8}> 
-                {console.log(weatherData.length, isInitialStateSet)}
                 {
-                    // Display image and prompt if initial state has set and no locations found
-                    weatherData.length < 1 && !isInitialStateSet ? 
+                    // Display image and prompt if no locations found
+                    weatherData.length < 1 ? 
                     <Paper className={classes.welcome} elevation={10}>
-                        <img width="40%" src={animation} alt="weather icon image"/>
+                        <img width="40%" src={animation} alt="weather icon animation"/>
                        <Typography className={classes.textStyle} variant="h5">Add a 5-Digit Zipcode in the Toolbar</Typography>
                        <Typography className={classes.textStyle } variant="h5"> Get Current Weather for any US Location</Typography>
                     </Paper> : 
