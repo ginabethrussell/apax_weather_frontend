@@ -152,7 +152,7 @@ function Signup() {
         {isLoading && (
           <div style={loadingStyle}>
             <Typography style={loadingTextStyle}>
-              Signing in user ...
+              Signing up user ...
             </Typography>
             <LinearProgress />
           </div>

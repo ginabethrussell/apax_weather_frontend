@@ -16,7 +16,7 @@ import { UserContext } from "../contexts/UserContext";
 const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
-    alignContent: "center",
+    alignItems: "center",
     justifyContent: "space-between",
     flexWrap: "wrap"
   },
@@ -26,8 +26,12 @@ const useStyles = makeStyles(() => ({
     justifyContent: "space-between",
   },
   input: {
-    width: 225,
+    width: 200,
     paddingLeft: 16,
+    borderRadius: 20,
+    display: "flex",
+    justifyContent: "space-between"
+
   },
   error: {
     marginRight: 15,
@@ -45,7 +49,7 @@ const useStyles = makeStyles(() => ({
 function Header(props) {
   const [zipcode, setZipcode] = useState("");
   const [inputErr, setInputErr] = useState("");
-  const { addZipcode } = props;
+  const { handleAddZipcode } = props;
   const { username } = useContext(UserContext);
   const classes = useStyles();
 
@@ -62,7 +66,7 @@ function Header(props) {
     e.preventDefault();
     const isValidZip = checkValidZip(zipcode);
     if (isValidZip) {
-      addZipcode(zipcode);
+      handleAddZipcode(zipcode);
       setInputErr("");
       setZipcode("");
     } else {
@@ -83,17 +87,16 @@ function Header(props) {
           {inputErr.length > 0 && (
             <Typography className={classes.error}>{inputErr}</Typography>
           )}
-          <Paper onSubmit={(e) => handleSubmit(e)} component="form">
+          <Paper className={classes.input} onSubmit={(e) => handleSubmit(e)} component="form">
             <InputBase
-              className={classes.input}
               label="Zipcode"
               name="zipcode"
-              placeholder="Enter a 5-digit US Zipcode"
+              placeholder="Enter a US Zipcode"
               value={zipcode}
               onChange={handleChange}
               inputProps={{ "aria-label": "enter a US zipcode" }}
             />
-            <IconButton type="submit" aria-label="add location">
+            <IconButton style={{padding: "8px"}}type="submit" aria-label="add location">
               <AddPhotoAlternateIcon />
             </IconButton>
           </Paper>

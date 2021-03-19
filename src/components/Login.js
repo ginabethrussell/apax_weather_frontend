@@ -56,7 +56,6 @@ function Login() {
 
   const login = (e) => {
     e.preventDefault();
-    console.log("logging in user" + credentials);
     setIsLoading(true);
     axios
       .post(
