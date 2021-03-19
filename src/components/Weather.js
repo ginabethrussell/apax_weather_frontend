@@ -31,6 +31,8 @@ function Weather() {
     const { zipcodes, setZipcodes, weatherData, setWeatherData} = useContext(UserContext);
     const [userid, setUserid] = useState("");
     const [zipApiErr, setZipApiErr] = useState("");
+    const [isInitialStateSet, setIsInitialState] = useState(false);
+
     const classes = useStyles();
 
     const handleAddZipcode = (zipcode) => {
@@ -83,6 +85,7 @@ function Weather() {
                 }
                 return newLocationObj    
             }));
+           
         })
         .catch(err => console.log(err))
     }, [])
@@ -113,7 +116,10 @@ function Weather() {
                     locations.push(locationData);
                     setZipApiErr("");
                 })
-                .then(() =>setWeatherData([...weatherData, ...locations]))
+                .then(() =>{
+                    setWeatherData([...weatherData, ...locations]);
+                    setIsInitialState(true);
+                })
                 .catch(err => {
                     console.log(err);
                     // open weather api doesn't find zipcode
@@ -133,13 +139,14 @@ function Weather() {
             <Grid item container>
                 <Grid item xs={2} sm={2}/> 
                 <Grid item xs={8} sm={8}> 
+                {console.log(weatherData.length, isInitialStateSet)}
                 {
-                    weatherData.length < 1 ? 
+                    // Display image and prompt if initial state has set and no locations found
+                    weatherData.length < 1 && !isInitialStateSet ? 
                     <Paper className={classes.welcome} elevation={10}>
                         <img width="40%" src={animation} alt="weather icon image"/>
                        <Typography className={classes.textStyle} variant="h5">Add a 5-Digit Zipcode in the Toolbar</Typography>
                        <Typography className={classes.textStyle } variant="h5"> Get Current Weather for any US Location</Typography>
-
                     </Paper> : 
                     <Grid style={{marginTop: '25px'}}container spacing={4}>
                     {console.log(weatherData)}
