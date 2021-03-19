@@ -4,13 +4,35 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import Header from "./Header";
 import WeatherCard from "./WeatherCard";
 import { UserContext } from "../contexts/UserContext";
-import {Grid } from "@material-ui/core";
+import {Grid, Paper, Typography } from "@material-ui/core";
+import animation from "../rainy-4.svg"
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles(() => ({
+  welcome: {
+    padding: 20,
+    height: "30vh",
+    width: "50%",
+    minWidth: 280,
+    maxWidth: 500,
+    margin: "100px auto",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  textStyle: {
+      fontFamily: "Noto sans",
+      color: "#2e3451",
+      textAlign: "center",
+  }
+}));
 function Weather() {
     const { zipcodes, setZipcodes, weatherData, setWeatherData} = useContext(UserContext);
     const [userid, setUserid] = useState("");
     const [zipApiErr, setZipApiErr] = useState("");
-    
+    const classes = useStyles();
+
     const handleAddZipcode = (zipcode) => {
         console.log("current zipcodes", zipcodes);
         console.log("adding ", zipcode)
@@ -111,6 +133,14 @@ function Weather() {
             <Grid item container>
                 <Grid item xs={2} sm={2}/> 
                 <Grid item xs={8} sm={8}> 
+                {
+                    weatherData.length < 1 ? 
+                    <Paper className={classes.welcome} elevation={10}>
+                        <img width="40%" src={animation} alt="weather icon image"/>
+                       <Typography className={classes.textStyle} variant="h5">Add a 5-Digit Zipcode in the Toolbar</Typography>
+                       <Typography className={classes.textStyle } variant="h5"> Get Current Weather for any US Location</Typography>
+
+                    </Paper> : 
                     <Grid style={{marginTop: '25px'}}container spacing={4}>
                     {console.log(weatherData)}
                         {   
@@ -121,6 +151,7 @@ function Weather() {
                             ))
                         }
                     </Grid>
+                }      
                 </Grid>
                 <Grid item xs={2} sm={2} /> 
             </Grid>

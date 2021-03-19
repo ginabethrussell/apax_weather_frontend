@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import axios from "axios";
+
 import {
   Grid,
   Paper,
@@ -72,7 +73,7 @@ function Signup() {
         setIsLoading(false);
         setCredentials(initialUserCredentials);
         localStorage.setItem("token", res.data.access_token);
-        history.push("/weather");
+        history.push("/welcome");
       })
       .catch((err) => {
         console.log(err);
