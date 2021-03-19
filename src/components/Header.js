@@ -49,7 +49,7 @@ const useStyles = makeStyles(() => ({
 function Header(props) {
   const [zipcode, setZipcode] = useState("");
   const [inputErr, setInputErr] = useState("");
-  const { handleAddZipcode } = props;
+  const { handleAddZipcode, zipApiErr } = props;
   const { username } = useContext(UserContext);
   const classes = useStyles();
 
@@ -86,6 +86,9 @@ function Header(props) {
         <div className={classes.inputStyle}>
           {inputErr.length > 0 && (
             <Typography className={classes.error}>{inputErr}</Typography>
+          )}
+           {zipApiErr.length > 0 && (
+            <Typography className={classes.error}>{zipApiErr}</Typography>
           )}
           <Paper className={classes.input} onSubmit={(e) => handleSubmit(e)} component="form">
             <InputBase

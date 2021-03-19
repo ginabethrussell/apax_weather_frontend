@@ -9,10 +9,12 @@ import {Grid } from "@material-ui/core";
 function Weather() {
     const { zipcodes, setZipcodes, weatherData, setWeatherData} = useContext(UserContext);
     const [userid, setUserid] = useState("");
+    const [zipApiErr, setZipApiErr] = useState("");
     
     const handleAddZipcode = (zipcode) => {
         console.log("current zipcodes", zipcodes);
         console.log("adding ", zipcode)
+        setZipApiErr("");
         const isNewZip = zipcodes.filter(zip => zip.zipcode === zipcode);
         console.log("Checking isNewZip", isNewZip);
         if (isNewZip.length < 1){
@@ -87,9 +89,16 @@ function Weather() {
                         windSpeed: res.data.wind.speed,
                     };
                     locations.push(locationData);
+                    setZipApiErr("");
                 })
                 .then(() =>setWeatherData([...weatherData, ...locations]))
-                .catch(err => console.log(err))
+                .catch(err => {
+                    console.log(err);
+                    // open weather api doesn't find zipcode
+                    setZipApiErr("Zipcode location not found");
+                    // delete invalid zip from db
+                    handleDelete(zip.locationid)
+                })
                 }
                 
             })   
@@ -98,7 +107,7 @@ function Weather() {
 
     return (
         <Grid container direction="column">
-            <Grid item><Header handleAddZipcode={handleAddZipcode}/></Grid>
+            <Grid item><Header handleAddZipcode={handleAddZipcode} zipApiErr={zipApiErr}/></Grid>
             <Grid item container>
                 <Grid item xs={2} sm={2}/> 
                 <Grid item xs={8} sm={8}> 
