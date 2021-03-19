@@ -1,13 +1,17 @@
 import React, { useState, useContext } from "react";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
 import {
   AppBar,
   InputBase,
   Toolbar,
   Typography,
   Paper,
-  IconButton
+  IconButton,
+  Button
 } 
 from "@material-ui/core";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import { makeStyles } from "@material-ui/core/styles";
@@ -51,8 +55,9 @@ function Header(props) {
   const [inputErr, setInputErr] = useState("");
   const { handleAddZipcode, zipApiErr } = props;
   const { username } = useContext(UserContext);
+  const history = useHistory();
   const classes = useStyles();
-
+  
   const handleChange = (e) => {
     setZipcode(e.target.value);
   };
@@ -73,6 +78,18 @@ function Header(props) {
       setInputErr("Enter a valid zipcode");
     }
   };
+
+  const handleLogout = () => {
+    axiosWithAuth().get("/logout")
+    .then(res => {
+      console.log(res);
+      localStorage.removeItem("token");
+      history.push("/");
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
 
   return (
     <AppBar position="static">
@@ -104,6 +121,14 @@ function Header(props) {
             </IconButton>
           </Paper>
         </div>
+        <Button
+        onClick={handleLogout}
+        variant="contained"
+        className={classes.button}
+        startIcon={<ExitToAppIcon />}
+      >
+        Sign out
+      </Button>
       </Toolbar>
     </AppBar>
   );
