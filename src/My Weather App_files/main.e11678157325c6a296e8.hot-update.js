@@ -1,0 +1,15 @@
+webpackHotUpdate("main",{
+
+/***/ "./src/components/Header.js":
+/*!**********************************!*\
+  !*** ./src/components/Header.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/ginabethrussell/Desktop/apax-weather-frontend/apax-weather-frontend/src/components/Header.js: Unexpected token, expected \",\" (99:15)\n\n\u001b[0m \u001b[90m  97 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  98 |\u001b[39m   \u001b[36mreturn\u001b[39m (\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  99 |\u001b[39m     { isMobile \u001b[33m?\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 100 |\u001b[39m     \u001b[33m<\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 101 |\u001b[39m     \u001b[33m<\u001b[39m\u001b[33mAppBar\u001b[39m position\u001b[33m=\u001b[39m\u001b[32m\"static\"\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 102 |\u001b[39m       \u001b[33m<\u001b[39m\u001b[33mToolbar\u001b[39m className\u001b[33m=\u001b[39m{classes\u001b[33m.\u001b[39mroot}\u001b[33m>\u001b[39m\u001b[0m\n    at _temp._raise (/Users/ginabethrussell/Desktop/apax-weather-frontend/apax-weather-frontend/node_modules/@babel/parser/lib/index.js:775:17)\n    at _temp.raiseWithData (/Users/ginabethrussell/Desktop/apax-weather-frontend/apax-weather-frontend/node_modules/@babel/parser/lib/index.js:768:17)\n    at _temp.raise (/Users/ginabethrussell/Desktop/apax-weather-frontend/apax-weather-frontend/node_modules/@babel/parser/lib/index.js:736:17)\n    at _temp.unexpected (/Users/ginabethrussell/Desktop/apax-weather-frontend/apax-weather-frontend/node_modules/@babel/parser/lib/index.js:9699:16)\n    at _temp.expect (/Users/ginabethrussell/Desktop/apax-weather-frontend/apax-weather-frontend/node_modules/@babel/parser/lib/index.js:9685:28)\n    at _temp.parseObjectLike (/Users/ginabethrussell/Desktop/apax-weather-frontend/apax-weather-frontend/node_modules/@babel/parser/lib/index.js:11439:14)\n    at _temp.parseExprAtom (/Users/ginabethrussell/Desktop/apax-weather-frontend/apax-weather-frontend/node_modules/@babel/parser/lib/index.js:11007:23)\n    at _temp.parseExprAtom (/Users/ginabethrussell/Desktop/apax-weather-frontend/apax-weather-frontend/node_modules/@babel/parser/lib/index.js:5173:20)\n    at _temp.parseExprSubscripts (/Users/ginabethrussell/Desktop/apax-weather-frontend/apax-weather-frontend/node_modules/@babel/parser/lib/index.js:10668:23)\n    at _temp.parseUpdate (/Users/ginabethrussell/Desktop/apax-weather-frontend/apax-weather-frontend/node_modules/@babel/parser/lib/index.js:10648:21)");
+
+/***/ })
+
+})
+//# sourceMappingURL=main.e11678157325c6a296e8.hot-update.js.map
