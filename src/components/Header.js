@@ -21,32 +21,24 @@ const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
-    flexWrap: "wrap"
+    justifyContent: "center",
+    flexWrap: "wrap",
+    padding: 10
   },
   dashboardHeader: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
+    padding: 10
   },
   input: {
-    width: 200,
     paddingLeft: 16,
     borderRadius: 20,
-    display: "flex",
-    justifyContent: "space-between"
-
+    marginLeft: 100,
+    marginRight:100
   },
   error: {
-    marginRight: 15,
+    // marginRight: 15,
   },
-  inputStyle: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  iconStyle: {
-    marginRight: 8,
+  button: {
+    margin: 8,
   },
 }));
 
@@ -94,12 +86,10 @@ function Header(props) {
   return (
     <AppBar position="static">
       <Toolbar className={classes.root}>
-        <div className={classes.dashboardHeader}>
-          <AccountCircleIcon className={classes.iconStyle} />
-          <Typography className={classes.title} variant="h6" noWrap>
-            {username}'s Weather App
-          </Typography>
-        </div>
+        <AccountCircleIcon style={{padding: "8px"}} className={classes.iconStyle} />
+        <Typography className={classes.title} variant="h6" noWrap>
+          {username}'s Weather App
+        </Typography>
         <div className={classes.inputStyle}>
           {inputErr.length > 0 && (
             <Typography className={classes.error}>{inputErr}</Typography>
