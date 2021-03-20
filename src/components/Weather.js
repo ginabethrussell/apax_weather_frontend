@@ -4,29 +4,56 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import Header from "./Header";
 import WeatherCard from "./WeatherCard";
 import { UserContext } from "../contexts/UserContext";
-import {Grid, Paper, Typography } from "@material-ui/core";
+import {Paper, Typography } from "@material-ui/core";
 import {Alert, AlertTitle} from "@material-ui/lab";
 import animation from "../rainy-6.svg"
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
-  welcome: {
-    padding: 10,
-    height: "40vh",
-    width: "50%",
-    minWidth: 280,
-    maxWidth: 500,
-    margin: "100px auto",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center"
+    dashboardContainer: {
+        display: "flex",
+        flexDirection: "column"
+    },
+    welcome: {
+        padding: 20,
+        maxHeight: "500px",
+        width: "100%",
+        minWidth: 280,
+        maxWidth: 550,
+        margin: "50px auto",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"
   },
-  textStyle: {
+    textStyle: {
       fontFamily: "Noto sans",
       color: "#2e3451",
       textAlign: "center",
-  }
+    },
+    weatherCardContainer: {
+        paddingTop: "25px",
+        paddingBottom: "75px",
+        width: "90%",
+        margin: "0 auto",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    weatherCardWrapper: {
+        width: "100%",
+        margin: "0 auto",
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        alignContent: "space-around"
+    },
+    weatherCard: {
+        width: "25%",
+        minWidth: 280,
+        maxWidth: 350,
+        margin: 25
+    }
 }));
 function Weather() {
     const { zipcodes, setZipcodes, weatherData, setWeatherData} = useContext(UserContext);
@@ -133,42 +160,38 @@ function Weather() {
     }, [zipcodes]);
 
     return (
-        <Grid container direction="column">
-            <Grid item><Header handleAddZipcode={handleAddZipcode} /></Grid>
+        <div className="dashboardContainer">
+            <Header handleAddZipcode={handleAddZipcode} />
             {
                 zipApiErr.length > 0 && 
-                <Grid item>
                 <Alert style={{fontSize: "16px"}}severity="error" onClose={() => handleRemoveError()}>
                     <AlertTitle>Error</AlertTitle>
                         <strong>{zipApiErr}</strong> - please enter a new zipcode.
                 </Alert>
-                </Grid>
             }
-            <Grid item container style={{marginTop: "50px"}}>
-                <Grid item xs={2} sm={2}/> 
-                <Grid item xs={8} sm={8}> 
+            <div className={classes.weatherCardContainer}>
                 {
                     // Display animation and prompt if no locations found
                     weatherData.length < 1 && pageLoaded ? 
-                    <Paper className={classes.welcome} elevation={10}>
-                        <img width="40%" src={animation} alt="weather icon animation"/>
-                       <Typography className={classes.textStyle} variant="h5">Add a 5-Digit Zipcode in the Toolbar</Typography>
-                       <Typography className={classes.textStyle } variant="h5"> Get Current Weather for any US Location</Typography>
-                    </Paper> : 
-                    <Grid style={{marginTop: '25px'}}container spacing={4}>
+                    <div className="welcomeWrapper">
+                        <Paper className={classes.welcome} elevation={10}>
+                            <img width="75%" src={animation} alt="weather icon animation"/>
+                        <Typography className={classes.textStyle} variant="h5">Add a 5-Digit Zipcode in the Toolbar</Typography>
+                        <Typography className={classes.textStyle } variant="h5"> Get Current Weather for any US Location</Typography>
+                        </Paper>
+                    </div> : 
+                    <div className={classes.weatherCardWrapper}>
                         {   
                             weatherData.map(location => (
-                            <Grid key={location.locationid} item xs={12} sm={6} md={4}>
+                            <div className={classes.weatherCard} key={location.locationid} >
                                 <WeatherCard location={location} handleDelete={handleDelete}/>
-                            </Grid>
+                            </div>
                             ))
                         }
-                    </Grid>
+                    </div>
                 }      
-                </Grid>
-                <Grid item xs={2} sm={2} /> 
-            </Grid>
-        </Grid>
+                </div>
+            </div>
     )
 }
 

@@ -16,6 +16,10 @@ const useStyles = makeStyles(() => ({
       width: 75,
       border: "1px solid #2e3451"
     },
+    location: {
+        fontFamily: "Noto sans",
+        fontSize: 16
+    }
   }));
 
 export default function WeatherCard(props) {
@@ -39,7 +43,7 @@ export default function WeatherCard(props) {
         />
   
       <CardContent>
-        <Typography  gutterBottom>
+        <Typography  className={classes.location} gutterBottom>
           Today's Weather - {location.weatherMain}
         </Typography>
         <hr />

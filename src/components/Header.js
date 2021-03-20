@@ -41,7 +41,8 @@ const useStyles = makeStyles(() => ({
     borderRadius: 20,
   },
   button: {
-    margin: 8,
+    color: "#3f51b5",
+    backgroundColor: "#fff"
   },
   mobile: {
     top: "auto",
@@ -66,6 +67,8 @@ const useStyles = makeStyles(() => ({
   },
   topToolbar: {
     display: "flex",
+    width: "80%",
+    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
   }
@@ -132,6 +135,7 @@ function Header(props) {
               variant="contained"
               className={classes.button}
               startIcon={<ExitToAppIcon />}
+              size="large"
             >
               Sign out
             </Button>
@@ -172,7 +176,7 @@ function Header(props) {
         </AppBar>
       ) : (
         <>
-          <AppBar position="fixed" color="primary" className={classes.mobileTop}>
+          <AppBar position="static" color="primary" className={classes.mobileTop}>
             <Toolbar className={classes.topToolbar}>
               <div className={classes.logo}>
                 <AccountCircleIcon
@@ -180,19 +184,22 @@ function Header(props) {
                   className={classes.iconStyle}
                 />
                 <Typography className={classes.title} variant="h6" noWrap>
-                  {username}'s Weather App
+                  My Weather App
                 </Typography>
               </div>
-              <IconButton
-                style={{ padding: "8px"}}
+              <Button
+                className={classes.button}
                 onClick={handleLogout}
                 aria-label="log out"
+                color="default"
+                variant="contained"
+                size="small"
                 >
-                <ExitToAppIcon fontSize="large" style={{ color: "#fff" }} />
-              </IconButton>
+                  Sign out
+              </Button>
             </Toolbar>
           </AppBar>
-          <AppBar position="fixed" color="primary" className={classes.mobile}>
+          <AppBar position="fixed" color="primary" className={classes.mobile} fullWidth>
             <Toolbar className={classes.toolbar}>
               <div className={classes.zipcodeInput}>
                 <Paper
