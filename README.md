@@ -1,10 +1,7 @@
 ## My Weather App
 
-#### Example:
 
-My Weather App
-
-An full stack web application which allows authenticated users to view current weather data for US zipcodes. Users can add and delete locations. Users and locations are stored in a backend database. The front end application is built with React, React Router, JavaScript, and Material UI.
+My Weather App is a full stack web application which displays current weather data for US zipcodes for authenticated users. Users can add and delete locations. Users and locations are stored in a backend database. The front end application is built with React, React Router, JavaScript, and Material UI.
 
 ## Project Screen Shots
 
