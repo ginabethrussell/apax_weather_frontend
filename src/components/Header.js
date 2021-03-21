@@ -179,10 +179,6 @@ function Header(props) {
           <AppBar position="static" color="primary" className={classes.mobileTop}>
             <Toolbar className={classes.topToolbar}>
               <div className={classes.logo}>
-                <AccountCircleIcon
-                  style={{ padding: "8px" }}
-                  className={classes.iconStyle}
-                />
                 <Typography className={classes.title} variant="h6" noWrap>
                   My Weather App
                 </Typography>

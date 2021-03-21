@@ -23,11 +23,10 @@ const useStyles = makeStyles((theme) => ({
   },
   welcome: {
     padding: 20,
-    height: "80vh",
-    maxHeight: "600px",
+    height: "auto",
     width: "75%",
-    minWidth: 280,
-    maxWidth: 550,
+    minWidth: 260,
+    maxWidth: 400,
     margin: "50px auto",
     display: "flex",
     flexDirection: "column",
@@ -60,8 +59,8 @@ function Welcome() {
         style={{ minHeight: '100vh' }}
         >
             <Paper className={classes.welcome} elevation={10}>
-                <Typography className={classes.textStyle} variant="h3">My Weather App</Typography>
-                <Typography className={classes.textStyle} variant="h4">Welcome, {username}</Typography>
+                <Typography className={classes.textStyle} variant="h4">My Weather App</Typography>
+                <Typography className={classes.textStyle} variant="h5">Welcome, {username}</Typography>
                 <img width="40%" src={animation} alt="weather icon animation"/>
                 <Typography className={classes.textStyle} variant="h6">Access current weather anywhere in the USA</Typography>
                 <Typography className={classes.textStyle} variant="h6">Enter a 5-digit Zipcode on your Weather Dashboard</Typography>

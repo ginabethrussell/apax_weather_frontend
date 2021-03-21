@@ -18,7 +18,8 @@ const useStyles = makeStyles(() => ({
     },
     location: {
         fontFamily: "Noto sans",
-        fontSize: 16
+        fontSize: 16,
+        fontWeight:600
     }
   }));
 
@@ -40,6 +41,7 @@ export default function WeatherCard(props) {
             </IconButton>
           }
           title={location.name}
+          subheader={location.zipcode}
         />
   
       <CardContent>

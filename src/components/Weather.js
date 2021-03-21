@@ -15,11 +15,11 @@ const useStyles = makeStyles(() => ({
         flexDirection: "column"
     },
     welcome: {
-        padding: 20,
-        maxHeight: "500px",
-        width: "100%",
-        minWidth: 280,
-        maxWidth: 550,
+        padding: 10,
+        height: "auto",
+        width: "70%",
+        minWidth: 260,
+        maxWidth: 350,
         margin: "50px auto",
         display: "flex",
         flexDirection: "column",
@@ -59,8 +59,6 @@ function Weather() {
     const { zipcodes, setZipcodes, weatherData, setWeatherData} = useContext(UserContext);
     const [userid, setUserid] = useState("");
     const [zipApiErr, setZipApiErr] = useState("");
-    const [pageLoaded, setPageLoaded] = useState(false);
-
     const classes = useStyles();
 
     const handleRemoveError = () => {
@@ -119,7 +117,6 @@ function Weather() {
     }, [])
 
     useEffect(() => {
-        setPageLoaded(true);
         if (zipcodes.length > 0){
             const locations = []
             zipcodes.forEach(zip => {
@@ -144,8 +141,7 @@ function Weather() {
                     setZipApiErr("");
                 })
                 .then(() =>{
-                    setWeatherData([...weatherData, ...locations]);
-                   
+                    setWeatherData([...weatherData, ...locations]);    
                 })
                 .catch(err => {
                     console.log(err);
@@ -172,10 +168,10 @@ function Weather() {
             <div className={classes.weatherCardContainer}>
                 {
                     // Display animation and prompt if no locations found
-                    weatherData.length < 1 && pageLoaded ? 
+                    zipcodes.length < 1 ?
                     <div className="welcomeWrapper">
                         <Paper className={classes.welcome} elevation={10}>
-                            <img width="75%" src={animation} alt="weather icon animation"/>
+                            <img width="65%" src={animation} alt="weather icon animation"/>
                         <Typography className={classes.textStyle} variant="h5">Add a 5-Digit Zipcode in the Toolbar</Typography>
                         <Typography className={classes.textStyle } variant="h5"> Get Current Weather for any US Location</Typography>
                         </Paper>

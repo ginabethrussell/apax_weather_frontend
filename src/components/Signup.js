@@ -36,7 +36,7 @@ function Signup() {
     width: "70%",
     minWidth: 280,
     maxWidth: 350,
-    margin: "100px auto",
+    margin: "50px auto",
   };
   const avatarStyle = { backgroundColor: "#44ccee" };
   const buttonStyle = { margin: "20px 0" };
@@ -90,7 +90,7 @@ function Signup() {
 
   return (
     <Grid>
-      <Paper elevation={20} style={paperStyle}>
+      <Paper elevation={10} style={paperStyle}>
         <Grid align="center">
           <h1 style={titleStyle}>My Weather App</h1>
           <Avatar style={avatarStyle}>
