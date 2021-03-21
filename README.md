@@ -5,21 +5,24 @@ My Weather App is a full stack web application which displays current weather da
 
 ## Project Screen Shots
 
-#### Desktop and Tablet Interface:   
+#### Desktop and Tablet Interface: 
+
 ![User Sign Up](signupscreenshot.png)
 
 ![User Welcome](welcomescreenshot.png)
 
 ![User Dashboard](dashboardscreenshot.png)
 
-#### Desktop and Tablet Interface:   
-![User Sign In](mobilesigninscreenshot.png)
+#### Mobile Interface: 
 
-![User Dashboard](mobiledashboardcreenshot.png)
+<img src="mobilesigninscreenshot.png" width="50%" />
+
+<img src="mobiledashboardscreenshot.png" width="50%" />
+
+
 
 ## Installation and Setup Instructions
 
-#### Example:  
 
 Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
 
