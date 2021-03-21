@@ -1,13 +1,13 @@
-import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-import Header from "./Header";
-import WeatherCard from "./WeatherCard";
-import { UserContext } from "../contexts/UserContext";
 import {Paper, Typography } from "@material-ui/core";
 import {Alert, AlertTitle} from "@material-ui/lab";
-import animation from "../rainy-6.svg"
 import { makeStyles } from '@material-ui/core/styles';
+import { UserContext } from "../contexts/UserContext";
+import Header from "./Header";
+import WeatherCard from "./WeatherCard";
+import animation from "../rainy-6.svg"
 
 const useStyles = makeStyles(() => ({
     dashboardContainer: {
@@ -55,54 +55,26 @@ const useStyles = makeStyles(() => ({
         margin: 25
     }
 }));
+
 function Weather() {
-    const { zipcodes, setZipcodes, weatherData, setWeatherData} = useContext(UserContext);
     const [userid, setUserid] = useState("");
     const [zipApiErr, setZipApiErr] = useState("");
+    const [userHaveLocations, setUserHaveLocations] = useState(true);
+    const { zipcodes, setZipcodes, weatherData, setWeatherData} = useContext(UserContext);
     const classes = useStyles();
 
-    const handleRemoveError = () => {
-        setZipApiErr("");
-    }
-
-    const handleAddZipcode = (zipcode) => {
-        setZipApiErr("");
-        const isNewZip = zipcodes.filter(zip => zip.zipcode === zipcode);
-        if (isNewZip.length < 1){
-            axiosWithAuth().post(`/locations/location/${userid}/zipcode/${zipcode}`)
-                .then(res => {
-                    console.log(res);
-                    axiosWithAuth().get("/locations/getuserlocations")
-                        .then(res => {
-                            console.log(res.data);
-                            setZipcodes(res.data.map(item => {
-                                const newLocationObj =  {
-                                    locationid: item.locationid,
-                                    zipcode: item.zipcode
-                                }
-                            return newLocationObj;
-                            }));
-                        })
-                        .catch(err => console.log(err))
-                    })
-                .catch(err => console.log(err))
-        }   
-    }
-
-    const handleDelete = (locationid) => {
-        axiosWithAuth().delete(`locations/location/${locationid}`)
-                .then(res => {
-                    console.log(res);
-                })
-                .catch(err => console.log(err));
-        setZipcodes(zipcodes.filter(zipObj => zipObj.locationid !== locationid));
-        setWeatherData(weatherData.filter(weatherDataObj => weatherDataObj.locationid !== locationid));
-    }
-
+    // Call Backend API for initial authenticated user's info on page load
+    // Sets userid in state
+    // Sets flag to false if user has no locations on db
+    // Or, adds locations to zipcodes state array
     useEffect(() => {
         axiosWithAuth().get("/users/getuserinfo")
         .then(res => {
             console.log(res.data);
+            console.log(res.data.locations.length);
+            if(res.data.locations.length < 1){
+                setUserHaveLocations(false);
+            }
             setUserid(res.data.userid);
             setZipcodes(res.data.locations.map(item => {        
                const newLocationObj =  {
@@ -116,11 +88,19 @@ function Weather() {
         .catch(err => console.log(err))
     }, [])
 
+     // Calls Open Weather API for each zipcode in zipcodes state array
+    // Executes on initial page load and when zipcodes state value changes
+    // Verifies data not already in weatherData state array
+    // For each zipcode, creates a location object and pushes to a location array
+    // Adds location array to weatherData state array
+    // If an error is returned from API, sets an error message to zipApiErr state variable
+    // And calls handleDelete with invalid zipcode to remove from zipcodes state array
+    // And delete location from Backend API
     useEffect(() => {
         if (zipcodes.length > 0){
             const locations = []
+            setUserHaveLocations(true);
             zipcodes.forEach(zip => {
-                // make sure new zipcode not already in weatherData
                 if (!weatherData.find(location => location.zipcode === zip.zipcode)){
                     axios.get(`https://api.openweathermap.org/data/2.5/weather?zip=${zip.zipcode}&units=imperial&appid=11d7ddf7e962666cde4937e2b28eca42`)
                 .then(res => {
@@ -145,15 +125,66 @@ function Weather() {
                 })
                 .catch(err => {
                     console.log(err);
-                    // open weather api doesn't find zipcode
                     setZipApiErr(`No weather data found for Zipcode ${zip.zipcode}`);
-                    // delete invalid zip from db
                     handleDelete(zip.locationid)
                 })
                 }    
             })   
-        }    
+        }  
+        else {
+            setUserHaveLocations(false);
+        }  
     }, [zipcodes]);
+
+    // Adds a new zipcode to the Backend API locations for user
+    // Executes when user clicks user zipcode input button on Header component
+    // Verifies zipcode is not already in zipcode state array
+    // Executes POST request to Backend API with userid and zipcode
+    // Executes GET request for users locations
+    // Updates zipcode state array with user's db locations
+    const handleAddZipcode = (zipcode) => {
+        setZipApiErr("");
+        const isNewZip = zipcodes.filter(zip => zip.zipcode === zipcode);
+        if (isNewZip.length < 1){
+            axiosWithAuth().post(`/locations/location/${userid}/zipcode/${zipcode}`)
+                .then(res => {
+                    console.log(res);
+                    axiosWithAuth().get("/locations/getuserlocations")
+                        .then(res => {
+                            console.log(res.data);
+                            setZipcodes(res.data.map(item => {
+                                const newLocationObj =  {
+                                    locationid: item.locationid,
+                                    zipcode: item.zipcode
+                                }
+                            return newLocationObj;
+                            }));
+                        })
+                        .catch(err => console.log(err))
+                    })
+                .catch(err => console.log(err))
+        }   
+    }
+
+    // Deletes a zipcode from the Backend API locations for user
+    // Executes when user clicks delete icon button on WeatherCard component
+    // Executes DELETE request to Backend API with locationid
+    // Updates zipcode state array
+    // Updates weatherData array
+    const handleDelete = (locationid) => {
+        axiosWithAuth().delete(`locations/location/${locationid}`)
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => console.log(err));
+        setZipcodes(zipcodes.filter(zipObj => zipObj.locationid !== locationid));
+        setWeatherData(weatherData.filter(weatherDataObj => weatherDataObj.locationid !== locationid));
+    }
+
+    // Resets zipApiErr to initial state when user closes UI Alert
+    const handleRemoveError = () => {
+        setZipApiErr("");
+    }
 
     return (
         <div className="dashboardContainer">
@@ -167,8 +198,8 @@ function Weather() {
             }
             <div className={classes.weatherCardContainer}>
                 {
-                    // Display animation and prompt if no locations found
-                    zipcodes.length < 1 ?
+                    // Display animation and prompt if no locations found after initial load
+                    !userHaveLocations ?
                     <div className="welcomeWrapper">
                         <Paper className={classes.welcome} elevation={10}>
                             <img width="65%" src={animation} alt="weather icon animation"/>
@@ -176,6 +207,7 @@ function Weather() {
                         <Typography className={classes.textStyle } variant="h5"> Get Current Weather for any US Location</Typography>
                         </Paper>
                     </div> : 
+                    // Display a WeatherCard component for ueach location
                     <div className={classes.weatherCardWrapper}>
                         {   
                             weatherData.map(location => (

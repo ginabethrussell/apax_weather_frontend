@@ -13,6 +13,55 @@ import {
   LinearProgress,
 } from "@material-ui/core";
 import LockIcon from "@material-ui/icons/Lock";
+import { makeStyles } from '@material-ui/core/styles';
+
+import animation from "../cloudy-day-3.svg"
+
+const useStyles = makeStyles(() => ({
+  paperStyle: {
+    padding: 20,
+    height: "auto",
+    minHeight: 550,
+    width: "75%",
+    minWidth: 260,
+    maxWidth: 350,
+    margin: "50px auto",
+  },
+  titleStyle: {
+    fontWeight: "400",
+    color: "#2e3451",
+    marginBottom: "10px",
+    marginTop: 0
+  },
+  avatarStyle: {
+    backgroundColor: "#57a0ee"
+  },
+  buttonStyle: {
+    margin: "20px 0"
+  },
+  headingStyle: {
+    fontWeight: "400",
+    color: "#2e3451",
+    marginTop: "10px",
+  },
+  fieldStyle: {
+    marginBottom: 15
+  },
+  textStyle: {
+    color: "#2e3451", 
+    marginBottom: 10
+  }, 
+  errorStyle: {
+    color: "#f44336" 
+  },
+  loadingStyle: {
+    margin: 25
+  },
+  loadingTextStyle: {
+    marginBottom: 10, 
+    color: "#2e3451" 
+  }
+}))
 
 const initialUserCredentials = {
   username: "",
@@ -25,34 +74,7 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const { setUsername } = useContext(UserContext);
   const history = useHistory();
-
-  // Material UI styles
-  const paperStyle = {
-    padding: 20,
-    height: "80vh",
-    maxHeight: "600px",
-    width: "75%",
-    minWidth: 280,
-    maxWidth: 350,
-    margin: "50px auto",
-  };
-  const avatarStyle = { backgroundColor: "#44ccee" };
-  const buttonStyle = { margin: "20px 0" };
-  const titleStyle = {
-    fontWeight: "600",
-    color: "#2e3451",
-    marginBottom: "10px",
-  };
-  const headingStyle = {
-    fontWeight: "400",
-    color: "#2e3451",
-    marginTop: "10px",
-  };
-  const fieldStyle = { marginBottom: "15px" };
-  const textStyle = { color: "#2e3451" };
-  const errorStyle = { color: "crimson" };
-  const loadingStyle = { margin: "25px" };
-  const loadingTextStyle = { marginBottom: "10px", color: "#2e3451" };
+  const classes = useStyles();
 
   const login = (e) => {
     e.preventDefault();
@@ -92,17 +114,18 @@ function Login() {
 
   return (
     <Grid>
-      <Paper elevation={10} style={paperStyle}>
+      <Paper elevation={10} className={classes.paperStyle}>
         <Grid align="center">
-          <h1 style={titleStyle}>My Weather App</h1>
-          <Avatar style={avatarStyle}>
+          <img width="100px" src={animation} alt="weather animation" />
+          <h1 className={classes.titleStyle}>My Weather App</h1>
+          <Avatar className={classes.avatarStyle}>
             <LockIcon />
           </Avatar>
-          <h2 style={headingStyle}>Sign In</h2>
+          <h2 className={classes.headingStyle}>Sign In</h2>
         </Grid>
         <form onSubmit={login}>
           <TextField
-            style={fieldStyle}
+            className={classes.fieldStyle}
             label="Username"
             name="username"
             placeholder="Enter username"
@@ -127,23 +150,23 @@ function Login() {
             color="primary"
             variant="contained"
             fullWidth
-            style={buttonStyle}
+            className={classes.buttonStyle}
           >
             Sign In
           </Button>
 
-          <Typography style={textStyle}>
+          <Typography className={classes.textStyle}>
             {" "}
             Need an account?
             <Link onClick={() => history.push("/signup")}> Sign Up</Link>
           </Typography>
           {error.length > 0 && (
-            <Typography style={errorStyle}>{error}</Typography>
+            <Typography className={classes.errorStyle}>{error}</Typography>
           )}
         </form>
         {isLoading && (
-          <div style={loadingStyle}>
-            <Typography style={loadingTextStyle}>
+          <div className={classes.loadingStyle}>
+            <Typography className={classes.loadingTextStyle}>
               Signing in user ...
             </Typography>
             <LinearProgress />
