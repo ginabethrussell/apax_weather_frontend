@@ -76,7 +76,7 @@ const useStyles = makeStyles(() => ({
 
 function Header(props) {
   const [zipcode, setZipcode] = useState("");
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const { handleAddZipcode } = props;
   const { username } = useContext(UserContext);
   const history = useHistory();
