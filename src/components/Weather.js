@@ -59,6 +59,7 @@ const useStyles = makeStyles(() => ({
 function Weather() {
     const [userid, setUserid] = useState("");
     const [zipApiErr, setZipApiErr] = useState("");
+    const [isPageLoaded, setIsPageLoaded] = useState(false);
     const [userHaveLocations, setUserHaveLocations] = useState(true);
     const { zipcodes, setZipcodes, weatherData, setWeatherData} = useContext(UserContext);
     const classes = useStyles();
@@ -68,6 +69,10 @@ function Weather() {
     // Sets flag to false if user has no locations on db
     // Or, adds locations to zipcodes state array
     useEffect(() => {
+        console.log("UseEffect user api call")
+        console.log("pageLoaded", isPageLoaded);
+        console.log("hasLocations", userHaveLocations);
+        setIsPageLoaded(true);
         axiosWithAuth().get("/users/getuserinfo")
         .then(res => {
             console.log(res.data);
@@ -86,6 +91,7 @@ function Weather() {
            
         })
         .catch(err => console.log(err))
+       
     }, [])
 
     // Calls Open Weather API for each zipcode in zipcodes state array
@@ -97,9 +103,11 @@ function Weather() {
     // And calls handleDelete with invalid zipcode to remove from zipcodes state array
     // And delete location from Backend API
     useEffect(() => {
+        console.log("UseEffect zipcode api call")
+        console.log("pageLoaded", isPageLoaded);
+        console.log("hasLocations", userHaveLocations);
         if (zipcodes.length > 0){
             const locations = []
-            setUserHaveLocations(true);
             zipcodes.forEach(zip => {
                 if (!weatherData.find(location => location.zipcode === zip.zipcode)){
                     axios.get(`https://api.openweathermap.org/data/2.5/weather?zip=${zip.zipcode}&units=imperial&appid=11d7ddf7e962666cde4937e2b28eca42`)
@@ -121,7 +129,8 @@ function Weather() {
                     setZipApiErr("");
                 })
                 .then(() =>{
-                    setWeatherData([...weatherData, ...locations]);    
+                    setWeatherData([...weatherData, ...locations]); 
+                    setUserHaveLocations(true);   
                 })
                 .catch(err => {
                     console.log(err);
@@ -129,7 +138,7 @@ function Weather() {
                     handleDelete(zip.locationid)
                 })
                 }    
-            })   
+            }) 
         }  
         else {
             setUserHaveLocations(false);
@@ -196,10 +205,11 @@ function Weather() {
                         <strong>{zipApiErr}</strong> - please enter a new zipcode.
                 </Alert>
             }
+            {console.log("page rendering", isPageLoaded, userHaveLocations)}
             <div className={classes.weatherCardContainer}>
                 {
                     // Display animation and prompt if no locations found after initial load
-                    !userHaveLocations ?
+                    !userHaveLocations && isPageLoaded ?
                     <div className="welcomeWrapper">
                         <Paper className={classes.welcome} elevation={10}>
                             <img width="65%" src={animation} alt="weather icon animation"/>
