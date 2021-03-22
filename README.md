@@ -54,7 +54,7 @@ The front end application is deployed with Netlify and the backend application i
 
 [Clear Weather App Live Site](https://clear-weather.netlify.app/)
 
-[Clear Weather App Back End GitHub Repo](https://github.com/ginabethrussell/apax_weather_backend/edit/main/README.md)
+[Clear Weather App Back End GitHub Repo](https://github.com/ginabethrussell/apax_weather_backend)
 
 ## Project Screen Shots
 
