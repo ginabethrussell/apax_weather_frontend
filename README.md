@@ -1,6 +1,6 @@
-## My Weather App
+## Clear Weather App
 
-My Weather App is a full stack web application which displays current weather data for US zipcodes for authenticated users. Users can add and delete locations. Users and locations are stored in a backend database. The frontend application is built with React, React Router, JavaScript, and Material UI.
+Clear Weather App is a full stack web application which displays current weather data for US zipcodes for authenticated users. Users can add and delete locations. Users and locations are stored in a backend database. The frontend application is built with React, React Router, JavaScript, and Material UI.
 
 ### App User Requirements
 1. A user can create a new account
@@ -46,33 +46,28 @@ Next steps are to add End-to-End testing for user interactions on the frontend a
 ## Project Deployment
 The front end application is deployed with Netlify and the backend application is hosted on Heroku.
 
-[My Weather App Live Site](https://gbr-my-weather.netlify.app)
+[Clear Weather App Live Site](https://clear-weather.netlify.app/)
 
-[My Weather App Back End GitHub Repo](https://github.com/ginabethrussell/apax_weather_backend/edit/main/README.md)
+[Clear Weathers App Back End GitHub Repo](https://github.com/ginabethrussell/apax_weather_backend/edit/main/README.md)
 
 ## Project Screen Shots
 
 ### Desktop and Tablet Interface: 
 
 ##### New User Sign Up
-![User Sign Up](signupscreenshot.png)
+![User Sign Up](signup.png)
 
 ##### New User Welcome Page
-![User Welcome](welcomescreenshot.png)
+![User Welcome](welcome.png)
 
 ##### User Dashboard
-![User Dashboard](dashboardscreenshot.png)
+![User Dashboard](dashboard.png)
 
 ### Mobile Interface: 
 
-##### User Sign Up Page
-<div align="center">
-  <img src="mobilesigninscreenshot.png" width="30%" />
-</div>
-
 ##### User Dashboard
 <div align="center">
-  <img src="mobiledashboardscreenshot.png" width="30%" />
+  <img src="mobiledashboard.png" width="30%" />
 </div>
 
 ### Installation and Setup Instructions

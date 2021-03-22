@@ -59,7 +59,7 @@ function Welcome() {
         style={{ minHeight: '100vh' }}
         >
             <Paper className={classes.welcome} elevation={10}>
-                <Typography className={classes.textStyle} variant="h4">My Weather App</Typography>
+                <Typography className={classes.textStyle} variant="h4">Clear Weather</Typography>
                 <Typography className={classes.textStyle} variant="h5">Welcome, {username}</Typography>
                 <img width="40%" src={animation} alt="weather icon animation"/>
                 <Typography className={classes.textStyle} variant="h6">Access current weather anywhere in the USA</Typography>

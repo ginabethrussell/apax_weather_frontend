@@ -88,7 +88,7 @@ function Weather() {
         .catch(err => console.log(err))
     }, [])
 
-     // Calls Open Weather API for each zipcode in zipcodes state array
+    // Calls Open Weather API for each zipcode in zipcodes state array
     // Executes on initial page load and when zipcodes state value changes
     // Verifies data not already in weatherData state array
     // For each zipcode, creates a location object and pushes to a location array

@@ -117,7 +117,7 @@ function Login() {
       <Paper elevation={10} className={classes.paperStyle}>
         <Grid align="center">
           <img width="100px" src={animation} alt="weather animation" />
-          <h1 className={classes.titleStyle}>My Weather App</h1>
+          <h1 className={classes.titleStyle}>Clear Weather</h1>
           <Avatar className={classes.avatarStyle}>
             <LockIcon />
           </Avatar>

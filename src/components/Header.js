@@ -145,7 +145,7 @@ function Header(props) {
                 className={classes.iconStyle}
               />
               <Typography className={classes.title} variant="h6" noWrap>
-                {username}'s Weather App
+                {username}'s Clear Weather
               </Typography>
             </div>
             <div className={classes.zipcodeInput}>
@@ -180,7 +180,7 @@ function Header(props) {
             <Toolbar className={classes.topToolbar}>
               <div className={classes.logo}>
                 <Typography className={classes.title} variant="h6" noWrap>
-                  My Weather App
+                  Clear Weather
                 </Typography>
               </div>
               <Button
