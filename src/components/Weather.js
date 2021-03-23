@@ -4,7 +4,6 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import {Paper, Typography } from "@material-ui/core";
 import {Alert, AlertTitle} from "@material-ui/lab";
 import { makeStyles } from '@material-ui/core/styles';
-import { UserContext } from "../contexts/UserContext";
 import Header from "./Header";
 import WeatherCard from "./WeatherCard";
 import animation from "../rainy-6.svg"
@@ -59,9 +58,9 @@ const useStyles = makeStyles(() => ({
 function Weather() {
     const [userid, setUserid] = useState("");
     const [zipApiErr, setZipApiErr] = useState("");
-    const [isPageLoaded, setIsPageLoaded] = useState(false);
     const [userHaveLocations, setUserHaveLocations] = useState(true);
-    const { zipcodes, setZipcodes, weatherData, setWeatherData} = useContext(UserContext);
+    const [weatherData, setWeatherData] = useState([]);
+    const [zipcodes, setZipcodes] = useState([]);
     const classes = useStyles();
 
     // Call Backend API for initial authenticated user's info on page load
@@ -69,13 +68,9 @@ function Weather() {
     // Sets flag to false if user has no locations on db
     // Or, adds locations to zipcodes state array
     useEffect(() => {
-        console.log("UseEffect user api call")
-        console.log("pageLoaded", isPageLoaded);
-        console.log("hasLocations", userHaveLocations);
-        setIsPageLoaded(true);
         axiosWithAuth().get("/users/getuserinfo")
         .then(res => {
-            console.log(res.data);
+            console.log("initial response for logged in user data", res.data);
             console.log(res.data.locations.length);
             if(res.data.locations.length < 1){
                 setUserHaveLocations(false);
@@ -103,12 +98,10 @@ function Weather() {
     // And calls handleDelete with invalid zipcode to remove from zipcodes state array
     // And delete location from Backend API
     useEffect(() => {
-        console.log("UseEffect zipcode api call")
-        console.log("pageLoaded", isPageLoaded);
-        console.log("hasLocations", userHaveLocations);
         if (zipcodes.length > 0){
             const locations = []
             zipcodes.forEach(zip => {
+                console.log(zip);
                 if (!weatherData.find(location => location.zipcode === zip.zipcode)){
                     axios.get(`https://api.openweathermap.org/data/2.5/weather?zip=${zip.zipcode}&units=imperial&appid=11d7ddf7e962666cde4937e2b28eca42`)
                 .then(res => {
@@ -205,11 +198,10 @@ function Weather() {
                         <strong>{zipApiErr}</strong> - please enter a new zipcode.
                 </Alert>
             }
-            {console.log("page rendering", isPageLoaded, userHaveLocations)}
             <div className={classes.weatherCardContainer}>
                 {
                     // Display animation and prompt if no locations found after initial load
-                    !userHaveLocations && isPageLoaded ?
+                    !userHaveLocations?
                     <div className="welcomeWrapper">
                         <Paper className={classes.welcome} elevation={10}>
                             <img width="65%" src={animation} alt="weather icon animation"/>
@@ -217,8 +209,9 @@ function Weather() {
                         <Typography className={classes.textStyle } variant="h5"> Get Current Weather for any US Location</Typography>
                         </Paper>
                     </div> : 
-                    // Display a WeatherCard component for ueach location
+                    // Display a WeatherCard component for each location
                     <div className={classes.weatherCardWrapper}>
+                        {console.log(weatherData)}
                         {   
                             weatherData.map(location => (
                             <div className={classes.weatherCard} key={location.locationid} >

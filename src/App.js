@@ -12,16 +12,10 @@ import "./App.css";
 
 function App() {
   const [username, setUsername] = useState('');
-  const [zipcodes, setZipcodes] = useState([]);
-  const [weatherData, setWeatherData] = useState([]);
 
   const userContextValues = {
     username,
-    setUsername,
-    zipcodes, 
-    setZipcodes,
-    weatherData,
-    setWeatherData
+    setUsername
   }
   return (
     <div className="App">
