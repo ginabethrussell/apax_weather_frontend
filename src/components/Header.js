@@ -116,7 +116,6 @@ function Header(props) {
     axiosWithAuth()
       .get("/logout")
       .then((res) => {
-        console.log(res);
         localStorage.removeItem("token");
         history.push("/");
       })

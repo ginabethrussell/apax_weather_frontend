@@ -87,7 +87,6 @@ function Signup() {
     axios
       .post("https://gbr4477-apax-weather.herokuapp.com/createnewuser", newuser)
       .then((res) => {
-        console.log(res.data);
         setError("");
         setUsername(credentials.username);
         setIsLoading(false);
