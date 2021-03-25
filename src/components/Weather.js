@@ -59,7 +59,9 @@ const useStyles = makeStyles(() => ({
 function Weather() {
     const [userid, setUserid] = useState("");
     const [zipApiErr, setZipApiErr] = useState("");
+    const [isPageLoaded, setIsPageLoaded] = useState(false);
     const [userHaveLocations, setUserHaveLocations] = useState(true);
+    const [displayAnimation, setDisplayAnimation] = useState(false);
     const [weatherData, setWeatherData] = useState([]);
     const [zipcodes, setZipcodes] = useState([]);
     const classes = useStyles();
@@ -132,9 +134,23 @@ function Weather() {
             }) 
         }  
         else {
-            setUserHaveLocations(false);
+            if (isPageLoaded){
+                setUserHaveLocations(false);
+            }     
         }  
     }, [zipcodes]);
+
+    // Checks to see if user has no locations after page has loaded
+    // If both are true, display animation
+    useEffect(() => {
+        if (isPageLoaded && !userHaveLocations){
+            setDisplayAnimation(true);
+        }
+        else{
+            setDisplayAnimation(false);
+        }
+        setIsPageLoaded(true);
+    }, [userHaveLocations])
 
     // Adds a new zipcode to the Backend API locations for user
     // Executes when user clicks user zipcode input button on Header component
@@ -196,8 +212,8 @@ function Weather() {
             }
             <div className={classes.weatherCardContainer}>
                 {
-                    // Display animation and prompt if user has no locations
-                    !userHaveLocations ?
+                    // Display animation and prompt if user has no locations after initial page load
+                    displayAnimation ?
                     <div className="welcomeWrapper">
                         <Paper className={classes.welcome} elevation={10}>
                             <img width="65%" src={animation} alt="weather icon animation"/>

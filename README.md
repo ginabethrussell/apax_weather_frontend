@@ -25,15 +25,17 @@ The forms for the Login and Signup components provided a great introduction to M
 
 Once successfully logged in, new users are routed using the React Router useHistory hook to the Welcome component for an app introduction and then to the user's Weather Dashboard. Returning users are routed directly to the Weather Dashboard.
 
-To manage application state I decided to use the React's Context API with the useContext hook. This allowed me to provide a single data object to the app's components and access the individual props needed in individual components without implementing prop drilling. User and location state and the state setters were initially created with the useState hook in the top level App component and then used and updated within the nested components.
+To manage application state I decided to use the React's Context API with the useContext hook. This allowed me to provide a single data object to the app's components and access the individual props needed in individual components without implementing prop drilling. Username and its state setter were initially created with the useState hook in the top level App component and then provided to nested components using the React useContext hook.
 
-Login and Signup components set the username to the initial state and location state variables were set within the Weather Dashboard. UseEffect hooks were used within the Weather Dashboard to access the backend api for the userid and user's locations and to call the Open Weather Map API for weather data when the user's locations change. Additional functions were created to add and delete locations, making needed api calls to update the backend database and the local application state.
+Login and Signup components used the username state setter to update the username state and the Header component used the username state variable to customize the user's Dashboard. Additional state variables were created for use within their own components or were passed as props to the nested component as needed.
 
-I made the decision to use US zipcodes as the query paramter for the Open Weather Map API. Zipcodes allowed for a simpler, easier to validate input. This limited this initial version to US locations represented by 5-digit zipcodes.
+I made the decision to use US zipcodes as the query paramter for the Open Weather Map API. Zipcodes allowed for a simpler, easier to validate input. This limited this initial version to US locations represented by 5-digit zipcodes. 
 
 I created a Header component for the Weather Dashboard using the Material UI AppBar. The header included an account icon, the user's username from the application state, an input for a 5-digit zipcode with an icon button to submit, and a logout button to end the user's session and route back to the Login page. 
 
-Making the Header component responsive proved a challenge. After trying many options, I eventually decided to provide an entirely different layout on small screens. I researched a way to conditionally render React components based on screen size and found a solution that used a state boolean variable to get the initial window size, and set an event listener for page resize. I implemented a useEffect with a dependency array to monitor changes in screen size and call a function to set a state variable which controlled which AppBar layout was rendered. Screens less than 768px would render the mobile AppBar layout. I decided to divide the mobile AppBar into two AppBars for small screens. The top bar would display the app name and the logout button and the bottom bar would be fixed to the bottom of the screen and provide the user zipcode input and add location icon button. This separation of inputs provided much better user interaction on small screens.
+Making the Header component responsive proved a challenge. After trying many options, I eventually decided to provide an entirely different layout on small screens. I researched a way to conditionally render React components based on screen size and found a solution that used a state boolean variable to get the initial window size, and set an event listener for page resize. I implemented a useEffect with a dependency array to monitor changes in screen size and call a function to set a state variable which controlled which AppBar layout was rendered. Screens less than 768px would render the mobile AppBar layout. 
+
+I decided to divide the mobile AppBar into two AppBars for small screens. The top bar would display the app name and the logout button and the bottom bar would be fixed to the bottom of the screen and provide the user zipcode input and the add location icon button. This separation of inputs provided much better user interaction on small screens.
 
 Additional challenges were encountered in handling zipcode inputs already held in state and in handling invalid zipcodes, those which did not return a location from the Open Weather Map API. My initial setup added the location to the backend API for every 5-digit numerical value the user entered. I updated the state logic to ensure that invalid zipcodes were removed from the database. I added a Material UI Alert component to provide user feedback for invalid zipcode inputs. Non-numeric inputs and numeric inputs with a length not equal to five were handled within the input form.
 
@@ -47,7 +49,7 @@ Moving forward, I am planning to move the Open Weather API calls to the backend 
 
 ### Automated Testing
 
-Next steps are to add End-to-End testing for user interactions on the frontend app using Cypress and backend unit and integration testing for controllers and services with Spring for method and code coverage. 
+Next steps would be to add automated testing for the front and backend applications. Frontend testing would include end-to-end testing for user interactions using Cypress and unit/integration testing with RTL and Jest. Backend unit and integration testing for controllers and services would be added with Spring. 
 
 ## Project Deployment
 The front end application is deployed with Netlify and the backend application is hosted on Heroku.
@@ -96,4 +98,4 @@ To Visit App:
 
 `localhost:3000/`  
 
-
+To use with Open Weather Map, visit the [Weather API Documentation](https://openweathermap.org/api) and sign-up for a free developer API key.
