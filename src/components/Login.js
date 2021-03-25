@@ -51,6 +51,9 @@ const useStyles = makeStyles(() => ({
     color: "#2e3451", 
     marginBottom: 10
   }, 
+  linkStyle: {
+    cursor: "pointer"
+  },
   errorStyle: {
     color: "#f44336" 
   },
@@ -157,7 +160,7 @@ function Login() {
           <Typography className={classes.textStyle}>
             {" "}
             Need an account?
-            <Link onClick={() => history.push("/signup")}> Sign Up</Link>
+            <Link underline="none" className={classes.linkStyle} onClick={() => history.push("/signup")}> Sign Up</Link>
           </Typography>
           {error.length > 0 && (
             <Typography className={classes.errorStyle}>{error}</Typography>
