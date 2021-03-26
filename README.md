@@ -41,15 +41,17 @@ Additional challenges were encountered in handling zipcode inputs already held i
 
 Individual location information was rendered using Weather Cards composed of Material UI components. Open Weather Map API provided an icon which was incorporated into the Card Avatar and Typography components were used to render current weather data. I added the JavaScript math.round() function to make weather data values integers.
 
+Automated tests were written for the backend application. Unit tests were completed for the User and Location services. Integration tests were written for the User and Location controllers.
+
 ## Under Construction 
 
 ### Open Weather API
 
 Moving forward, I am planning to move the Open Weather API calls to the backend API. The frontend will add and delete zipcodes with routes to the backend and the backend server will handle the routes to get and return weather data to the client. This will hide the developer API key from the client.
 
-### Automated Testing
+### Frontend Automated Testing
 
-Next steps would be to add automated testing for the front and backend applications. Frontend testing would include end-to-end testing for user interactions using Cypress and unit/integration testing with RTL and Jest. Backend unit and integration testing for controllers and services would be added with Spring. 
+Next steps would be to add automated testing for the frontend application. Frontend testing would include end-to-end testing for user interactions using Cypress and unit/integration testing with RTL and Jest. 
 
 ## Project Deployment
 The front end application is deployed with Netlify and the backend application is hosted on Heroku.
